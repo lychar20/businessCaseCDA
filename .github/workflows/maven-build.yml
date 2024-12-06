@@ -47,6 +47,12 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      # Création d'une nouvelle variable d'env qui contient le nom du projet
+      # mais en minuscule pour pouvoir l'utiliser dans le nom de l'image docker
+      - name: Store repository lowercase
+        run:
+          echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
+
       # Build et push de l'image docker sur la registry docker de github
       -
         name: Build and push
@@ -54,4 +60,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+          tags: ghcr.io/${GITHUB_REPOSITORY}:${{ github.sha }}
