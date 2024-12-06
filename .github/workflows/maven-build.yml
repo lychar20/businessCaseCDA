@@ -6,9 +6,9 @@ name: Java CI with Maven
 # Permet de spécifier sur quelle branche on va lancer les jobs
 on:
   push:
-    branches: [ main ]
+    branches: [ saves ]
   pull_request:
-    branches: [ main ]
+    branches: [ saves ]
 
 jobs:
   build:
