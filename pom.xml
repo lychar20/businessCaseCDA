@@ -146,6 +146,14 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!--Dependance pour le driver du fichier application-postgres.properties-->
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 
 	</dependencies>
 
