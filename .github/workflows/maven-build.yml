@@ -61,3 +61,18 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/${{ env.GITHUB_REPOSITORY }}:${{ github.sha }}
+
+      # Automatisation du deploiement
+      - name: Automatisation du deploiement
+        run: |
+          curl --request POST \
+               --url https://api.render.com/v1/services/${{ vars.RENDER_SERVICE_ID }}/deploys \
+               --header 'accept: application/json' \
+               --header 'authorization: Bearer ${{ secrets.RENDER_TOKEN }}' \
+               --header 'content-type: application/json' \
+               --data '
+          {
+            "clearCache": "clear",
+            "imageUrl": "ghcr.io/${{ env.GITHUB_REPOSITORY }}:${{ github.sha }}"
+          }
+          '
