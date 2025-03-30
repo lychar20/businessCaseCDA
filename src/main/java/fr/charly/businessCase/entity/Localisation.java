@@ -36,6 +36,9 @@ public class Localisation {
     @Column(nullable = false)
     private String city;
 
+    @ManyToOne
+    private User owner;
+
     @OneToMany(mappedBy = "localisation")
     private List<UserLocalisation> userLocalisations = new ArrayList<>();
 

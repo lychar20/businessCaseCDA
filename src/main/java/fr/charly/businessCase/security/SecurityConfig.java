@@ -44,7 +44,26 @@ public class SecurityConfig {
                                 .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
                                 .requestMatchers(
                                         AntPathRequestMatcher.antMatcher("/v3/api-docs/**"),
-                                        AntPathRequestMatcher.antMatcher("/swagger-ui/**")
+                                        AntPathRequestMatcher.antMatcher("/swagger-ui/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/chargingstation/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.POST,"/api/chargingstation/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.PUT,"/api/chargingstation/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/power/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.POST,"/api/power/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/hourlyRate/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.POST,"/api/hourlyRate/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/review/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.POST,"/api/review/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.PUT,"/api/review/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/userReview/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.POST,"/api/userReview/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.PUT,"/api/userReview/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.POST,"/api/favorite/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.PUT,"/api/booking/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.POST,"/api/booking/**"),
+                                        AntPathRequestMatcher.antMatcher(HttpMethod.PUT,"/api/booking/**")
+
+
 //                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/listing/**"),
 //                                        AntPathRequestMatcher.antMatcher(HttpMethod.GET,"/api/user/activate/**")
                                 ).permitAll()

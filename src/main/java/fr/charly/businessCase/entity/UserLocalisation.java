@@ -23,7 +23,7 @@ public class UserLocalisation {
     private List<Booking> bookings;
 
     @ManyToOne
-    private User user;
+    private User owner;
 
     @ManyToOne
     private Localisation localisation;

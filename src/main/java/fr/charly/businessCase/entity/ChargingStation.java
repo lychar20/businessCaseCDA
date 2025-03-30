@@ -1,5 +1,7 @@
 package fr.charly.businessCase.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.charly.businessCase.json_views.JsonViews;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,11 @@ public class ChargingStation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private String uuid;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private String name;
 
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -27,17 +31,21 @@ public class ChargingStation {
 
     private Boolean onFoot;
 
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt = null;
 
     @ManyToOne
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private Power power;
 
     @ManyToOne
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private Localisation localisation;
 
     @OneToMany(mappedBy = "chargingStation")
+    @JsonView(JsonViews.ChargingStationMinimalView.class)
     private List<HourlyRate> hourlyRates = new ArrayList<>();
 
     @OneToMany(mappedBy = "chargingStation")

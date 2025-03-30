@@ -35,7 +35,6 @@ public class Booking {
     private User user;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
     private UserLocalisation userLocalisation;
 
 

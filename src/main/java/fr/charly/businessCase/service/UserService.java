@@ -1,10 +1,15 @@
 package fr.charly.businessCase.service;
 
 import fr.charly.businessCase.DTO.UserDTO;
+import fr.charly.businessCase.DTO.UserLocalisationDTO;
 import fr.charly.businessCase.DTO.UserUpdateDTO;
+import fr.charly.businessCase.entity.Localisation;
 import fr.charly.businessCase.entity.User;
+import fr.charly.businessCase.entity.UserLocalisation;
 import fr.charly.businessCase.exception.AlreadyActiveException;
 import fr.charly.businessCase.exception.ExpiredCodeException;
+import fr.charly.businessCase.repository.LocalisationRepository;
+import fr.charly.businessCase.repository.UserLocalisationRepository;
 import fr.charly.businessCase.repository.UserRepository;
 import fr.charly.businessCase.service.interfaces.ServiceListInterface;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,6 +30,7 @@ public class UserService implements ServiceListInterface <User, String, UserDTO,
 
 
     private UserRepository userRepository;
+    private UserLocalisationRepository userLocalisationRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -59,13 +65,36 @@ public class UserService implements ServiceListInterface <User, String, UserDTO,
     }
 
     @Override
-    public Boolean delete(String s) {
-        return null;
+    public Boolean delete(String uuid) {
+        try {
+            User user = findOneById(uuid);
+            user.setPhone(null);
+            user.setBirthedAt(null);
+            user.setLastName(null);
+            user.setFirstName(null);
+            user.setEmail("Utilisateur supprimé");
+            List<UserLocalisation> userLocalisations = user.getUserLocalisations();
+            if (userLocalisations!= null) {
+                user.setUserLocalisations(null);
+                userLocalisationRepository.saveAllAndFlush(userLocalisations);
+            }
+            userRepository.saveAndFlush(user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
     }
 
     @Override
     public User findOneById(String id) {
         return userRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
+    }
+
+    public User findOneByEmail(String email) {
+        return userRepository.findUserByEmailAndActivationCodeIsNull(email)
+                .orElseThrow(EntityNotFoundException::new);
     }
 
     public User activate(String code) {

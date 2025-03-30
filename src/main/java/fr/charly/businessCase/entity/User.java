@@ -65,7 +65,7 @@ public class User implements UserDetails {
     private List<UserReview> userReviewsTo = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "owner")
     private List<UserLocalisation> userLocalisations = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
